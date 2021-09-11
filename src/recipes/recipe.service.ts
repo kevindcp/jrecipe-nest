@@ -5,7 +5,7 @@ import UpdateRecipeDto from './dto/updateRecipe.dto';
  
 @Injectable()
 export default class RecipesService {
-  private lastRecipeId = 1;
+  private lastRecipeId = 2;
   private Recipes: Recipe[] = [
     {
     "id": 1,
@@ -13,7 +13,14 @@ export default class RecipesService {
     "title" : "test recipe",
     "ingredients" : ["adsjkadsjldsj", "weqiewpewqi"],
     "steps" : ["adsidsjsiadjiodij", "dajldjsaj"]
-    }
+    }, 
+    {
+      "id": 2,
+      "user": 2,
+      "title" : "test recipe 2",
+      "ingredients" : ["adsjkadsjldsj", "weqiewpewqi"],
+      "steps" : ["adsidsjsiadjiodij", "dajldjsaj"]
+      }
   ];
  
   getAllRecipes() {
@@ -30,9 +37,14 @@ export default class RecipesService {
  
   replaceRecipe(id: number, Recipe: UpdateRecipeDto) {
     const RecipeIndex = this.Recipes.findIndex(Recipe => Recipe.id === id);
+    const UpdatedRecipe = {
+      id,
+      user: this.Recipes[RecipeIndex].user,
+      ...Recipe,
+    }
     if (RecipeIndex > -1) {
-      this.Recipes[RecipeIndex] = Recipe;
-      return Recipe;
+      this.Recipes[RecipeIndex] = UpdatedRecipe;
+      return UpdatedRecipe;
     }
     throw new HttpException('Recipe not found', HttpStatus.NOT_FOUND);
   }

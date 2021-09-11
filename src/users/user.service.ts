@@ -27,9 +27,13 @@ export default class UsersService {
  
   replaceUser(id: number, User: UpdateUserDto) {
     const UserIndex = this.Users.findIndex(User => User.id === id);
+    const UpdatedUser = {
+      id,
+      ...User,
+    }
     if (UserIndex > -1) {
-      this.Users[UserIndex] = User;
-      return User;
+      this.Users[UserIndex] = UpdatedUser;
+      return UpdatedUser;
     }
     throw new HttpException('User not found', HttpStatus.NOT_FOUND);
   }
