@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@n
 import RecipesService from './recipes.service';
 import CreateRecipeDto from './dto/createRecipe.dto';
 import UpdateRecipeDto from './dto/updateRecipe.dto';
+import IdValidator from 'src/utils/validateId';
 
 @Controller('recipes')
 export default class RecipesController {
@@ -25,12 +26,12 @@ export default class RecipesController {
   }
 
   @Patch(':id')
-  async updateRecipe(@Param('id') id: string, @Body() recipe: UpdateRecipeDto) {
+  async updateRecipe(@Param() {id}: IdValidator, @Body() recipe: UpdateRecipeDto) {
     return this.recipesService.updateRecipe(Number(id), recipe);
   }
 
   @Delete(':id')
-  async deleteRecipe(@Param('id') id: string) {
+  async deleteRecipe(@Param() {id}: IdValidator) {
     return this.recipesService.deleteRecipe(Number(id));
   }
 }

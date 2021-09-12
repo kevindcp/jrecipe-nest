@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import UsersService from './users.service';
 import CreateUserDto from './dto/createUser.dto';
 import UpdateUserDto from './dto/updateUser.dto';
+import IdValidator from 'src/utils/validateId';
 
 @Controller('users')
 export default class UsersController {
@@ -15,7 +16,7 @@ export default class UsersController {
   }
 
   @Get(':id')
-  getUserById(@Param('id') id: string) {
+  getUserById(@Param() {id}: IdValidator) {
     return this.usersService.getUserById(Number(id));
   }
 
@@ -25,12 +26,12 @@ export default class UsersController {
   }
 
   @Patch(':id')
-  async updateRecipe(@Param('id') id: string, @Body() userData: UpdateUserDto) {
+  async updateRecipe(@Param() {id}: IdValidator, @Body() userData: UpdateUserDto) {
     return this.usersService.updateUser(Number(id), userData);
   }
 
   @Delete(':id')
-  async deleteRecipe(@Param('id') id: string) {
+  async deleteRecipe(@Param() {id}: IdValidator) {
     return this.usersService.deleteUser(Number(id));
   }
 }
