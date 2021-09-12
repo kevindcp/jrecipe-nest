@@ -19,17 +19,12 @@ export default class UsersService {
 
   async getAllUsers() {
     const users = await this.usersRepository.find()
-    const userList = users.map(user => user = {
-      ...user,
-      password : undefined
-    })
-    return userList
+    return users
   }
 
   async getUserById(id: number) {
     const user = await this.usersRepository.findOne({ id });
     if (user) {
-      user.password = undefined
       return user;
     }
     throw new HttpException('User with this id does not exist', HttpStatus.NOT_FOUND);
@@ -53,7 +48,6 @@ export default class UsersService {
     userData.password = await this.hashPassword(userData.password)
     const newUser = await this.usersRepository.create(userData);
     await this.usersRepository.save(newUser);
-    newUser.password = undefined
     return newUser;
   }
 
@@ -61,7 +55,6 @@ export default class UsersService {
     await this.usersRepository.update(id, userData)
     const updatedUser = await this.usersRepository.findOne(id)
     if (updatedUser) {
-      updatedUser.password = undefined
       return updatedUser
     }
     throw new HttpException('User does not exist', HttpStatus.NOT_FOUND)

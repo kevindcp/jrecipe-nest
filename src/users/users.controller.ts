@@ -1,10 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, SerializeOptions } from '@nestjs/common';
 import UsersService from './users.service';
 import CreateUserDto from './dto/createUser.dto';
 import UpdateUserDto from './dto/updateUser.dto';
 import IdValidator from 'src/utils/validateId';
-
 @Controller('users')
+@SerializeOptions({
+  strategy: 'exposeAll'
+})
 export default class UsersController {
   constructor(
     private readonly usersService: UsersService
