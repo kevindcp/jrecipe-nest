@@ -14,7 +14,7 @@ export default class CreateRecipeDto {
 
   @IsString()
   @IsOptional()
-  category?: string
+  category: string
 }
 
   

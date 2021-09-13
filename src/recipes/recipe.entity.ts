@@ -1,5 +1,4 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { Transform } from 'class-transformer';
 @Entity()
 class Recipe {
   @PrimaryGeneratedColumn()
@@ -15,7 +14,7 @@ class Recipe {
   public steps: string;
 
   @Column({ nullable: true })
-  public category?: string;
+  public category: string;
 }
 
 export default Recipe;

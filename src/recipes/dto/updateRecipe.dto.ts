@@ -17,5 +17,5 @@ export default class UpdateRecipeDto {
 
   @IsString()
   @IsOptional()
-  category?: string
+  category: string
 }
