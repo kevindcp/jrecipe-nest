@@ -14,4 +14,8 @@ export default class UpdateRecipeDto {
   @IsString()
   @IsOptional()
   steps: string;
+
+  @IsString()
+  @IsOptional()
+  category?: string
 }
