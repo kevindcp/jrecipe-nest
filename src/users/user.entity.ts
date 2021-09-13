@@ -1,5 +1,6 @@
 import { Exclude, Expose } from 'class-transformer';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import Recipe from 'src/recipes/recipe.entity';
 @Entity()
 class User {
   @PrimaryGeneratedColumn()
@@ -14,6 +15,9 @@ class User {
   @Column()
   @Exclude()
   public password: string;
+
+  @OneToMany(() => Recipe, (recipe: Recipe) => recipe.author )
+  public recipes: Recipe[]
 }
  
 export default User;

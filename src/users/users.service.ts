@@ -23,7 +23,7 @@ export default class UsersService {
   }
 
   async getUserById(id: number) {
-    const user = await this.usersRepository.findOne({ id });
+    const user = await this.usersRepository.findOne(id, {relations: ['recipes']} );
     if (user) {
       return user;
     }

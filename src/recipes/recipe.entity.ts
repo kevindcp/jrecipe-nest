@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { Transform } from 'class-transformer';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import Category from 'src/category/category.entity';
+import User from 'src/users/user.entity';
 @Entity()
 class Recipe {
   @PrimaryGeneratedColumn()
@@ -14,13 +15,13 @@ class Recipe {
   @Column()
   public steps: string;
 
-  @Column({ nullable: true })
-  @Transform(({value}) => {
-    if (value !== null) {
-      return value;
-    }
-  })
-  public category: string;
+  @ManyToMany(() => Category, (category: Category) => category.recipes)
+  @JoinTable()
+  public categories: string;
+
+  @ManyToOne(() => User, (author: User) => author.recipes)
+  public author: User
+
 }
 
 export default Recipe;

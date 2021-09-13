@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Res } from '@nestjs/common';
 import RecipesService from './recipes.service';
 import CreateRecipeDto from './dto/createRecipe.dto';
 import UpdateRecipeDto from './dto/updateRecipe.dto';
@@ -16,8 +16,8 @@ export default class RecipesController {
   }
 
   @Get(':id')
-  getRecipeById(@Param('id') id: string) {
-    return this.recipesService.getRecipeById(Number(id));
+  getRecipeById(@Param('id') id: string) { 
+    return this.recipesService.getRecipeById(Number(id))
   }
 
   @Post()

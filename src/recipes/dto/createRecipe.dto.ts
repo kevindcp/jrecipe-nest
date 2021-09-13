@@ -12,15 +12,6 @@ export default class CreateRecipeDto {
   @IsString()
   @IsNotEmpty()
   steps: string
-
-  @IsString()
-  @IsOptional()
-  @Transform(({value}) => {
-    if (value !== null) {
-      return value;
-    }
-  })
-  category: string
 }
 
   

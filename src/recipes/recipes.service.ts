@@ -4,7 +4,6 @@ import Recipe from './recipe.entity';
 import UpdateRecipeDto from './dto/updateRecipe.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
 @Injectable()
 export default class RecipesService {
   constructor(
@@ -13,16 +12,16 @@ export default class RecipesService {
   ) {}
 
   intoArray(recipe: CreateRecipeDto) {
-    const recipeResponse = {
+    const recipeResponse  = {
       ...recipe,
       ingredients: recipe.ingredients.split('/'),
-      steps: recipe.steps.split('/')
+      steps: recipe.steps.split('/'),
     }
     return recipeResponse;
   }
 
   getAllRecipes() {
-    const recipes = this.recipesRepository.find()
+    const recipes = this.recipesRepository.find({relations: ['author', 'categories']})
     const recipesArray = recipes.then(recipes => recipes.map(recipe => this.intoArray(recipe))) 
     return recipesArray;
   }

@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { RecipesModule } from './recipes/recipes.module';
 import { UsersModule } from './users/user.module';
+import { CategoriesModule } from './category/category.module';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
 import { DBModule } from './db/db.module';
 @Module({
-  imports: [RecipesModule, UsersModule,
+  imports: [RecipesModule, UsersModule, CategoriesModule,
     ConfigModule.forRoot({
     // validate env variable swith Joi
     validationSchema: Joi.object({
