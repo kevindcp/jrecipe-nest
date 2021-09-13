@@ -1,4 +1,5 @@
 import {IsString, IsNotEmpty, IsOptional } from 'class-validator';
+import { Transform } from 'class-transformer';
 export default class CreateRecipeDto {
   @IsString()
   @IsNotEmpty()
@@ -14,6 +15,11 @@ export default class CreateRecipeDto {
 
   @IsString()
   @IsOptional()
+  @Transform(({value}) => {
+    if (value !== null) {
+      return value;
+    }
+  })
   category: string
 }
 
