@@ -11,26 +11,16 @@ export default class RecipesService {
     private recipesRepository: Repository<Recipe>
   ) {}
 
-  intoArray(recipe: CreateRecipeDto) {
-    const recipeResponse  = {
-      ...recipe,
-      ingredients: recipe.ingredients.split('/'),
-      steps: recipe.steps.split('/'),
-    }
-    return recipeResponse;
-  }
-
   getAllRecipes() {
     const recipes = this.recipesRepository.find({relations: ['author', 'categories']})
-    const recipesArray = recipes.then(recipes => recipes.map(recipe => this.intoArray(recipe))) 
-    return recipesArray;
+    return recipes;
   }
 
 
   async getRecipeById(id: number) {
     const recipe = await this.recipesRepository.findOne(id);
     if (recipe) {
-      return this.intoArray(recipe);
+      return recipe;
     }
     throw new HttpException('Recipe not found', HttpStatus.NOT_FOUND);
   }
