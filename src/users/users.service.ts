@@ -30,13 +30,13 @@ export default class UsersService {
     throw new HttpException('User with this id does not exist', HttpStatus.NOT_FOUND);
   }
 
-  /* async getUserByEmail(email: string) {
-    const user = await this.usersRepository.findOne({ email });
+  async getUserByUsername(username: string) {
+    const user = await this.usersRepository.findOne({ username });
     if (user) {
       return user;
     }
     throw new HttpException('User with this email does not exist', HttpStatus.NOT_FOUND);
-  } */
+  }
  
   async createUser(userData: CreateUserDto) {
     // Validate email is not duplicate

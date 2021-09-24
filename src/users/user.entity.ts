@@ -10,7 +10,7 @@ class User {
   public email: string;
  
   @Column()
-  public name: string;
+  public username: string;
  
   @Column()
   @Exclude()
