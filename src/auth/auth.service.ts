@@ -6,7 +6,6 @@ import * as bcrypt from 'bcrypt'
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import TokenPayload from "./tokenPayload.Interface";
-
 @Injectable()
 export class AuthService {
   constructor(
@@ -23,16 +22,13 @@ export class AuthService {
     }
     // register
     public async register(registrationData: CreateUserDto) {
-      console.log(registrationData)
       try {
         const createdUser = await this.usersService.createUser(registrationData);
-        console.log(createdUser)
         return createdUser;
       } catch (error) {
         if (error?.code === PostgresErrorCode.UniqueViolation) {
           throw new HttpException('User with that email already exists', HttpStatus.BAD_REQUEST);
         }
-        console.log(error)
         throw new HttpException('Something went wrong', HttpStatus.INTERNAL_SERVER_ERROR);
       }
     }
