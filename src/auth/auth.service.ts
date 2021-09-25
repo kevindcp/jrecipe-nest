@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt'
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import TokenPayload from "./tokenPayload.Interface";
+import TokenDecoded from "./tokeDecoded.interface";
 @Injectable()
 export class AuthService {
   constructor(
@@ -44,9 +45,9 @@ export class AuthService {
       }
     }
 
-    public getTokenWithJwtToken(userId: number) {
-      const payload: TokenPayload = { id: userId};
-      const token = this.jwtService.sign(payload);
+    public async getTokenWithJwtToken(userId: number) {
+      const payload: TokenPayload = { id: userId };
+      const token = await this.jwtService.signAsync(payload);
       return {token};
     }
   }
