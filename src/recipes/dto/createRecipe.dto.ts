@@ -1,4 +1,4 @@
-import {IsString, IsNotEmpty, IsOptional } from 'class-validator';
+import {IsString, IsNotEmpty } from 'class-validator';
 export default class CreateRecipeDto {
   @IsString()
   @IsNotEmpty()
@@ -11,6 +11,7 @@ export default class CreateRecipeDto {
   @IsString()
   @IsNotEmpty()
   steps: string
+  
 }
 
   

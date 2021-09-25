@@ -4,6 +4,7 @@ import Recipe from './recipe.entity';
 import UpdateRecipeDto from './dto/updateRecipe.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import User from 'src/users/user.entity';
 @Injectable()
 export default class RecipesService {
   constructor(
@@ -16,7 +17,6 @@ export default class RecipesService {
     return recipes;
   }
 
-
   async getRecipeById(id: number) {
     const recipe = await this.recipesRepository.findOne(id);
     if (recipe) {
@@ -25,8 +25,8 @@ export default class RecipesService {
     throw new HttpException('Recipe not found', HttpStatus.NOT_FOUND);
   }
 
-  async createRecipe(recipe: CreateRecipeDto) {
-    const newRecipe = await this.recipesRepository.create(recipe);
+  async createRecipe(recipe: CreateRecipeDto, userId: User) {
+    const newRecipe = await this.recipesRepository.create({...recipe, author: userId});
     await this.recipesRepository.save(newRecipe);
     return newRecipe;
   }

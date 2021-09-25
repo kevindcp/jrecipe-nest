@@ -23,7 +23,7 @@ export default class UsersService {
   }
 
   async getUserById(id: number) {
-    const user = await this.usersRepository.findOne(id, {relations: ['recipes']} );
+    const user = await this.usersRepository.findOne(id /*, {relations: ['recipes']} */ );
     if (user) {
       return user;
     }
@@ -39,12 +39,7 @@ export default class UsersService {
   }
  
   async createUser(userData: CreateUserDto) {
-    // Validate email is not duplicate
-    const email = userData.email
-    const user = await this.usersRepository.findOne({ email });
-    if (user){
-      throw new HttpException('User with this email already exist', HttpStatus.NOT_ACCEPTABLE);
-    }
+    // Validate email is not duplicate\
     userData.password = await this.hashPassword(userData.password)
     const newUser = await this.usersRepository.create(userData);
     await this.usersRepository.save(newUser);
