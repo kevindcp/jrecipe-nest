@@ -6,7 +6,6 @@ import * as bcrypt from 'bcrypt'
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import TokenPayload from "./tokenPayload.Interface";
-import TokenDecoded from "./tokeDecoded.interface";
 @Injectable()
 export class AuthService {
   constructor(
