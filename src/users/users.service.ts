@@ -23,7 +23,7 @@ export default class UsersService {
   }
 
   async getUserById(id: number) {
-    const user = await this.usersRepository.findOne(id ,  {relations: ['recipes']});
+    const user = await this.usersRepository.findOne(id);
     if (user) {
       return user;
     }
@@ -60,5 +60,13 @@ export default class UsersService {
     if (!deleteResponse.affected) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
+  }
+
+  async getUserRecipes(id: number) {
+    const user = await this.usersRepository.findOne(id ,  {relations: ['recipes']});
+    if (user) {
+      return user.recipes;
+    }
+    throw new HttpException('User with this id does not exist', HttpStatus.NOT_FOUND);
   }
 }

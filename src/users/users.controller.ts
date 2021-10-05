@@ -22,6 +22,11 @@ export default class UsersController {
     return this.usersService.getUserById(Number(id));
   }
 
+  @Get(':id/recipes')
+  getUserRecipes(@Param() {id}: IdValidator) {
+    return this.usersService.getUserRecipes(Number(id));
+  }
+
   @Post()
   async createRecipe(@Body() userData: CreateUserDto) {
     return this.usersService.createUser(userData);
