@@ -25,7 +25,6 @@ import Category from 'src/category/category.entity';
           process.env.NODE_ENV === 'production'
             ? { rejectUnauthorized: false }
             : false,
-        }
       })
     }),
   ],
