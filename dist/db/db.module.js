@@ -32,6 +32,9 @@ DBModule = __decorate([
                         recipe_entity_1.default, user_entity_1.default, category_entity_1.default
                     ],
                     synchronize: true,
+                    ssl: process.env.NODE_ENV === 'production'
+                        ? { rejectUnauthorized: false }
+                        : false,
                 })
             }),
         ],
